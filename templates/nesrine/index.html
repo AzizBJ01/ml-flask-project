@@ -37,7 +37,6 @@
             display: block;
         }
 
-        .form-group select,
         .form-group input {
             width: 100%;
             padding: 12px;
@@ -47,7 +46,6 @@
             color: #e5e7eb;
         }
 
-        .form-group select:focus,
         .form-group input:focus {
             outline: none;
             border-color: #22d3ee;
@@ -115,6 +113,217 @@
                 rgba(56,189,248,0.15)
             );
         }
+        .results-dark {
+    padding: 60px 10%;
+    background: radial-gradient(
+        circle at top,
+        #0b1026,
+        #050816
+    );
+}
+
+.results-title-dark {
+    color: #e5e7eb;
+    font-size: 1.8rem;
+    margin-bottom: 35px;
+    text-align: center;
+}
+
+.result-grid-dark {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+}
+
+.result-card-dark {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    border-radius: 18px;
+    padding: 25px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.result-card-dark:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+}
+
+.result-card-dark span {
+    display: block;
+    margin-top: 12px;
+    font-size: 0.9rem;
+    color: #9ca3af;
+}
+
+.result-card-dark strong {
+    display: block;
+    margin-top: 8px;
+    font-size: 1.9rem;
+    color: #f9fafb;
+}
+
+/* Icons */
+.icon-dark {
+    width: 54px;
+    height: 54px;
+    margin: auto;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: #fff;
+}
+
+.icon-dark.clicks { background: linear-gradient(135deg, #6366f1, #4338ca); }
+.icon-dark.average { background: linear-gradient(135deg, #06b6d4, #0891b2); }
+.icon-dark.performance { background: linear-gradient(135deg, #f59e0b, #d97706); }
+.icon-dark.money { background: linear-gradient(135deg, #22c55e, #15803d); }
+
+/* Recommendation */
+.recommendation-dark {
+    margin-top: 45px;
+    padding: 30px;
+    border-radius: 20px;
+    background: linear-gradient(
+        135deg,
+        rgba(34,197,94,0.25),
+        rgba(22,163,74,0.15)
+    );
+    backdrop-filter: blur(10px);
+    color: #ecfdf5;
+    display: flex;
+    gap: 18px;
+    border: 1px solid rgba(34,197,94,0.3);
+}
+
+.rec-icon {
+    font-size: 2.4rem;
+}
+
+.recommendation-dark p {
+    margin-top: 6px;
+    line-height: 1.6;
+}
+.recommendation-dark {
+    display: grid;
+    grid-template-columns: 1.2fr 2.5fr 1fr;
+    gap: 25px;
+    align-items: center;
+    padding: 35px;
+    border-radius: 22px;
+    background: linear-gradient(
+        135deg,
+        rgba(34,197,94,0.18),
+        rgba(22,163,74,0.08)
+    );
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(34,197,94,0.35);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+}
+
+/* LEFT */
+.rec-left strong {
+    font-size: 1.2rem;
+    color: #ecfdf5;
+}
+
+.rec-subtitle {
+    display: block;
+    margin-top: 6px;
+    font-size: 0.85rem;
+    color: #a7f3d0;
+}
+
+.rec-icon {
+    font-size: 2.8rem;
+    margin-bottom: 10px;
+}
+
+.pulse {
+    animation: pulse 1.8s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.1); opacity: 0.7; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* MIDDLE */
+.rec-compare {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+}
+
+.compare-box {
+    background: rgba(255,255,255,0.06);
+    padding: 14px 18px;
+    border-radius: 14px;
+    text-align: center;
+    min-width: 120px;
+}
+
+.compare-box span {
+    font-size: 0.75rem;
+    color: #9ca3af;
+}
+
+.compare-box strong {
+    display: block;
+    margin-top: 5px;
+    color: #f9fafb;
+}
+
+.compare-box.highlight {
+    border: 1px solid #22c55e;
+    box-shadow: 0 0 20px rgba(34,197,94,0.4);
+}
+
+/* Gain Bar */
+.gain-bar {
+    margin-top: 18px;
+    height: 10px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.gain-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #22c55e, #4ade80);
+    width: 0;
+    animation: growBar 1.6s ease forwards;
+}
+
+@keyframes growBar {
+    from { width: 0; }
+}
+
+/* Gain Label */
+.gain-label {
+    display: block;
+    margin-top: 8px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #bbf7d0;
+}
+
+/* RIGHT */
+.rec-right .metric span {
+    font-size: 0.8rem;
+    color: #9ca3af;
+}
+
+.rec-right .metric strong {
+    font-size: 1.6rem;
+    color: #ecfdf5;
+}
+
     </style>
 </head>
 
@@ -136,7 +345,44 @@
         </ul>
     </div>
 </nav>
-
+<!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#home" class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M3 13h2v8H3zm4-8h2v13H7zm4-2h2v15h-2zm4 4h2v11h-2zm4-2h2v13h-2z"/>
+                    </svg>
+                </div>
+                <span class="logo-text">Graph Page</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#dashboard">Dashboard</a></li>
+                <li><a href="#analytics">Analytics</a></li>
+                <li><a href="#reports">Reports</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <a href="https://www.google.com/search" target="_blank" rel="noopener" title="Search">
+                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+            </a>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <ul class="nav-links-mobile" id="navLinksMobile">
+            <li><a href="#home" class="active">Home</a></li>
+            <li><a href="#dashboard">Dashboard</a></li>
+            <li><a href="#analytics">Analytics</a></li>
+            <li><a href="#reports">Reports</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
 <!-- ================= HERO ================= -->
 <section class="hero">
     <div class="hero-content">
@@ -147,82 +393,72 @@
                 and receive actionable marketing recommendations.
             </p>
         </div>
+        <div class="hero-visual">
+                <div class="city-container">
+                    <div class="building building1">
+                        <div class="building-fill"></div>
+                        <div class="building-windows"></div>
+                    </div>
+                    <div class="building building2">
+                        <div class="building-fill"></div>
+                        <div class="building-windows"></div>
+                    </div>
+                    <div class="building building3">
+                        <div class="building-fill"></div>
+                        <div class="building-windows"></div>
+                    </div>
+                    <div class="building building4">
+                        <div class="building-fill"></div>
+                        <div class="building-windows"></div>
+                    </div>
+                    <div class="neon-line neon-line1"></div>
+                    <div class="neon-line neon-line2"></div>
+                </div>
+            </div>
     </div>
 </section>
 
 <!-- ================= FORM ================= -->
-<form
-    method="POST"
-    action="{{ url_for('nesrine.nesrine') }}"
-    class="predict-card"
->
+<form method="POST" action="{{ url_for('nesrine.nesrine') }}" class="predict-card">
 
     <div class="form-grid">
+
         <div class="form-group">
             <label>Target Audience</label>
-            <select name="Target_Audience">
-                {% for v in categories.Target_Audience %}
-                <option value="{{ v }}" {% if form_data.Target_Audience == v %}selected{% endif %}>
-                    {{ v }}
-                </option>
-                {% endfor %}
-            </select>
+            <input type="text" name="Target_Audience"
+                   value="{{ form_data.Target_Audience }}" required>
         </div>
 
         <div class="form-group">
             <label>Channel Used</label>
-            <select name="Channel_Used">
-                {% for v in categories.Channel_Used %}
-                <option value="{{ v }}" {% if form_data.Channel_Used == v %}selected{% endif %}>
-                    {{ v }}
-                </option>
-                {% endfor %}
-            </select>
+            <input type="text" name="Channel_Used"
+                   value="{{ form_data.Channel_Used }}" required>
         </div>
 
         <div class="form-group">
             <label>Campaign Goal</label>
-            <select name="Campaign_Goal">
-                {% for v in categories.Campaign_Goal %}
-                <option value="{{ v }}" {% if form_data.Campaign_Goal == v %}selected{% endif %}>
-                    {{ v }}
-                </option>
-                {% endfor %}
-            </select>
+            <input type="text" name="Campaign_Goal"
+                   value="{{ form_data.Campaign_Goal }}" required>
         </div>
 
         <div class="form-group">
             <label>Customer Segment</label>
-            <select name="Customer_Segment">
-                {% for v in categories.Customer_Segment %}
-                <option value="{{ v }}" {% if form_data.Customer_Segment == v %}selected{% endif %}>
-                    {{ v }}
-                </option>
-                {% endfor %}
-            </select>
+            <input type="text" name="Customer_Segment"
+                   value="{{ form_data.Customer_Segment }}" required>
         </div>
 
         <div class="form-group">
             <label>Language</label>
-            <select name="Language">
-                {% for v in categories.Language %}
-                <option value="{{ v }}" {% if form_data.Language == v %}selected{% endif %}>
-                    {{ v }}
-                </option>
-                {% endfor %}
-            </select>
+            <input type="text" name="Language"
+                   value="{{ form_data.Language }}" required>
         </div>
 
         <div class="form-group">
             <label>Acquisition Cost</label>
-            <input
-                type="number"
-                step="any"
-                name="Acquisition_Cost"
-                value="{{ form_data.Acquisition_Cost }}"
-                required
-            >
+            <input type="number" step="any" name="Acquisition_Cost"
+                   value="{{ form_data.Acquisition_Cost }}" required>
         </div>
+
     </div>
 
     <button type="submit" class="predict-btn">
@@ -231,42 +467,99 @@
 </form>
 
 <!-- ================= RESULTS ================= -->
+<!-- ================= RESULTS ================= -->
 {% if analysis %}
-<div class="results">
+<section class="results-dark">
 
-    <div class="result-grid">
-        <div class="result-item">
+    <h2 class="results-title-dark">Campaign Results</h2>
+
+    <div class="result-grid-dark">
+
+        <div class="result-card-dark">
+            <div class="icon-dark clicks">🖱️</div>
             <span>Predicted Clicks</span>
             <strong>{{ analysis.predicted_clicks }}</strong>
         </div>
 
-        <div class="result-item">
+        <div class="result-card-dark">
+            <div class="icon-dark average">📊</div>
             <span>Average Clicks</span>
             <strong>{{ analysis.avg_clicks }}</strong>
         </div>
 
-        <div class="result-item">
+        <div class="result-card-dark">
+            <div class="icon-dark performance">⚡</div>
             <span>Performance</span>
             <strong>{{ analysis.performance_pct }}%</strong>
         </div>
 
-        <div class="result-item">
+        <div class="result-card-dark">
+            <div class="icon-dark money">💰</div>
             <span>Cost per Click</span>
             <strong>{{ analysis.cost_per_click }}</strong>
         </div>
+
+    </div>
+{% if analysis.best_recommendation %}
+<div class="recommendation-dark">
+
+    <div class="rec-left">
+        <div class="rec-icon pulse">🚀</div>
+        <strong>Best Recommendation</strong>
+        <span class="rec-subtitle">Optimized campaign strategy</span>
     </div>
 
-    {% if analysis.best_recommendation %}
-    <div class="recommendation">
-        <strong>Best Recommendation</strong><br>
-        Switch from <b>{{ analysis.best_recommendation.from }}</b>
-        to <b>{{ analysis.best_recommendation.to }}</b><br>
-        Gain <b>{{ analysis.best_recommendation.gain_clics }}</b> clicks
-        (new total: {{ analysis.best_recommendation.new_total }})
+    <div class="rec-middle">
+        <div class="rec-compare">
+            <div class="compare-box">
+                <span>Current</span>
+                <strong>{{ analysis.best_recommendation.from }}</strong>
+            </div>
+
+            <div class="arrow">➡️</div>
+
+            <div class="compare-box highlight">
+                <span>Recommended</span>
+                <strong>{{ analysis.best_recommendation.to }}</strong>
+            </div>
+        </div>
+
+       <div class="gain-bar">
+    <div class="gain-fill" id="gainFill"></div>
+</div>
+<span class="gain-label">
+    +${{ analysis.best_recommendation.gain_cout }}
+</span>
+
+<script>
+    document.getElementById('gainFill').style.width = "{{ analysis.best_recommendation.performance_gain_pct }}%";
+</script>
+
     </div>
-    {% endif %}
+
+    <div class="rec-right">
+        <div class="metric">
+            <span>New Total</span>
+            <strong>{{ analysis.best_recommendation.new_total }} clicks</strong>
+        </div>
+
+        <!-- Show monetary gain -->
+        <div class="metric gain-highlight">
+            <span>You will gain</span>
+            <strong>+${{ analysis.best_recommendation.gain_cout }}</strong>
+        </div>
+    </div>
+
 </div>
 {% endif %}
+
+
+
+</section>
+{% endif %}
+
+
+
 
 <footer>
     <div class="footer-content">
@@ -276,3 +569,4 @@
 
 </body>
 </html>
+
