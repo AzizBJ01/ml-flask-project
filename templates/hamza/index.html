@@ -15,30 +15,6 @@ https://templatemo.com/tm-602-graph-page
 
 
 
-<!--
-<form method="POST">
-    <label>Return Rate History:</label>
-    <input type="number" step="any" name="param1">
-    
-    <label>Product Rating Avg:</label>
-    <input type="number" step="any" name="param2">
-    
-    <label>Customer Satisfaction:</label>
-    <input type="number" step="any" name="param3">
-    
-    <label>Purchase Frequency:</label>
-    <input type="number" step="any" name="param4">
-    
-    <label>Average Spend:</label>
-    <input type="number" step="any" name="param5">
-    
-
-    <button type="submit">Predict</button>
-</form>
-
-{% if prediction is not none %}
-    <h3>Prediction Result: {{ prediction }}</h3>
-{% endif %} -->
 
 
 
@@ -134,78 +110,83 @@ https://templatemo.com/tm-602-graph-page
     <!-- Dashboard Section -->
     <section class="dashboard-section" id="dashboard">
         <div class="dashboard-container">
-            <h2 class="section-title">Dashboard Overview</h2>
+            <h2 class="section-title">ML-Powered Acquisition Cost Dashboard</h2>
+            <p style="text-align: center; color: #a0a0a0; margin-bottom: 30px;">Optimize media spend by targeting high-value customers (Les Big Fish)</p>
             <!-- Stats Cards -->
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-header">
-                        <div class="stat-icon">📊</div>
-                        <div class="stat-title">Total Revenue</div>
-                    </div>
-                    <div class="stat-value">$42,847</div>
-                    <div class="stat-description">Monthly revenue increased by 23% compared to last month with strong performance across all channels.</div>
-                    <div class="stat-chart">
-                        <canvas class="mini-chart" id="miniChart1"></canvas>
-                    </div>
-                </div>
-
-                <div class="stat-card">
-                    <div class="stat-header">
-                        <div class="stat-icon">👥</div>
-                        <div class="stat-title">Active Users</div>
-                    </div>
-                    <div class="stat-value">18.5K</div>
-                    <div class="stat-description">Real-time analytics showing active users currently engaging with the platform.</div>
-                    <div class="stat-chart">
-                        <canvas class="mini-chart" id="miniChart2"></canvas>
-                    </div>
-                </div>
-
-                <div class="stat-card">
-                    <div class="stat-header">
                         <div class="stat-icon">🎯</div>
-                        <div class="stat-title">Conversion Rate</div>
+                        <div class="stat-title">High-Value Target Rate</div>
                     </div>
-                    <div class="stat-value">94.3%</div>
-                    <div class="stat-description">Customer satisfaction rate based on recent surveys and feedback analysis.</div>
+                    <div class="stat-value" style="color: #00ff88;">{{ "%.1f"|format(metrics.high_value_rate if metrics else 0) }}%</div>
+                    <div class="stat-description">Percentage of evaluated targets identified as high-value customers. Higher rate = better targeting efficiency.</div>
                     <div class="stat-chart">
-                        <canvas class="mini-chart" id="miniChart3"></canvas>
-                    </div>
-                </div>
-
-                <div class="stat-card">
-                    <div class="stat-header">
-                        <div class="stat-icon">🚀</div>
-                        <div class="stat-title">Performance Score</div>
-                    </div>
-                    <div class="stat-value">7,392</div>
-                    <div class="stat-description">Overall system performance metrics showing optimal operation across all services.</div>
-                    <div class="stat-chart">
-                        <canvas class="mini-chart" id="miniChart4"></canvas>
+                        <div style="height: 40px; background: linear-gradient(90deg, #00ff88 {{ (metrics.high_value_rate if metrics else 0)|round }}%, rgba(0, 255, 136, 0.2) {{ (metrics.high_value_rate if metrics else 0)|round }}%); border-radius: 4px;"></div>
                     </div>
                 </div>
 
                 <div class="stat-card">
                     <div class="stat-header">
                         <div class="stat-icon">💰</div>
-                        <div class="stat-title">Monthly Growth</div>
+                        <div class="stat-title">CAC Efficiency Score</div>
                     </div>
-                    <div class="stat-value">+28.5%</div>
-                    <div class="stat-description">Consistent month-over-month growth in user acquisition and revenue generation.</div>
+                    <div class="stat-value" style="color: #00ffcc;">{{ "%.1f"|format(metrics.cac_efficiency if metrics else 0) }}/100</div>
+                    <div class="stat-description">Customer Acquisition Cost efficiency metric. Higher score = lower effective CAC through better targeting.</div>
                     <div class="stat-chart">
-                        <canvas class="mini-chart" id="miniChart5"></canvas>
+                        <div style="height: 40px; background: linear-gradient(90deg, #00ffcc {{ (metrics.cac_efficiency if metrics else 0)|round }}%, rgba(0, 255, 204, 0.2) {{ (metrics.cac_efficiency if metrics else 0)|round }}%); border-radius: 4px;"></div>
                     </div>
                 </div>
 
                 <div class="stat-card">
                     <div class="stat-header">
-                        <div class="stat-icon">⚡</div>
-                        <div class="stat-title">System Uptime</div>
+                        <div class="stat-icon">⭐</div>
+                        <div class="stat-title">Target Quality Score</div>
                     </div>
-                    <div class="stat-value">99.9%</div>
-                    <div class="stat-description">Exceptional reliability with minimal downtime ensuring seamless user experience.</div>
+                    <div class="stat-value" style="color: #ffaa00;">{{ "%.1f"|format(metrics.target_quality_score if metrics else 0) }}%</div>
+                    <div class="stat-description">Average probability of targeting high-value customers. ML model confidence in target quality.</div>
                     <div class="stat-chart">
-                        <canvas class="mini-chart" id="miniChart6"></canvas>
+                        <div style="height: 40px; background: linear-gradient(90deg, #ffaa00 {{ (metrics.target_quality_score if metrics else 0)|round }}%, rgba(255, 170, 0, 0.2) {{ (metrics.target_quality_score if metrics else 0)|round }}%); border-radius: 4px;"></div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon">💸</div>
+                        <div class="stat-title">Cost Savings Potential</div>
+                    </div>
+                    <div class="stat-value" style="color: #ff6b6b;">{{ "%.1f"|format(metrics.cost_savings_potential if metrics else 0) }}%</div>
+                    <div class="stat-description">Estimated media cost savings by avoiding low-value targets. Reduce wasteful ad spend on poor prospects.</div>
+                    <div class="stat-chart">
+                        <div style="height: 40px; background: linear-gradient(90deg, #ff6b6b {{ (metrics.cost_savings_potential if metrics else 0)|round }}%, rgba(255, 107, 107, 0.2) {{ (metrics.cost_savings_potential if metrics else 0)|round }}%); border-radius: 4px;"></div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon">🚀</div>
+                        <div class="stat-title">Conversion Potential</div>
+                    </div>
+                    <div class="stat-value" style="color: #00ffcc;">{{ "%.1f"|format(metrics.conversion_potential if metrics else 0) }}%</div>
+                    <div class="stat-description">Expected conversion rate based on ML model predictions. Focus campaigns on targets above 70%.</div>
+                    <div class="stat-chart">
+                        <div style="height: 40px; background: linear-gradient(90deg, #00ffcc {{ (metrics.conversion_potential if metrics else 0)|round }}%, rgba(0, 255, 204, 0.2) {{ (metrics.conversion_potential if metrics else 0)|round }}%); border-radius: 4px;"></div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon">📊</div>
+                        <div class="stat-title">Targets Evaluated</div>
+                    </div>
+                    <div class="stat-value">{{ metrics.total_evaluated if metrics else 0 }}</div>
+                    <div class="stat-description">Total customer profiles analyzed by ML model. Breakdown: <strong style="color: #00ff88;">{{ metrics.high_value_count if metrics else 0 }} High</strong>, <strong style="color: #ffaa00;">{{ metrics.medium_value_count if metrics else 0 }} Medium</strong>, <strong style="color: #ff6b6b;">{{ metrics.low_value_count if metrics else 0 }} Low</strong> value.</div>
+                    <div class="stat-chart">
+                        <div style="height: 40px; display: flex; gap: 2px;">
+                            <div style="flex: {{ metrics.high_value_count if metrics else 0 }}; background: #00ff88; border-radius: 4px 0 0 4px;"></div>
+                            <div style="flex: {{ metrics.medium_value_count if metrics else 0 }}; background: #ffaa00;"></div>
+                            <div style="flex: {{ metrics.low_value_count if metrics else 0 }}; background: #ff6b6b; border-radius: 0 4px 4px 0;"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -215,33 +196,34 @@ https://templatemo.com/tm-602-graph-page
     <!-- Analytics Section -->
     <section class="analytics-section" id="analytics">
         <div class="dashboard-container">
-            <h2 class="section-title">Advanced Analytics</h2>
+            <h2 class="section-title">ML Customer Segmentation Analytics</h2>
+            <p style="text-align: center; color: #a0a0a0; margin-bottom: 30px;">Data-driven insights for optimal customer acquisition targeting</p>
             
             <!-- Key Metrics Overview -->
             <div class="metrics-grid">
                 <div class="metric-item">
-                    <div class="metric-value">2.4M</div>
-                    <div class="metric-label">Page Views</div>
+                    <div class="metric-value" style="color: #00ff88;">{{ metrics.high_value_count if metrics else 0 }}</div>
+                    <div class="metric-label">High-Value Targets</div>
                 </div>
                 <div class="metric-item">
-                    <div class="metric-value">156K</div>
-                    <div class="metric-label">Unique Visitors</div>
+                    <div class="metric-value" style="color: #ffaa00;">{{ metrics.medium_value_count if metrics else 0 }}</div>
+                    <div class="metric-label">Medium-Value Targets</div>
                 </div>
                 <div class="metric-item">
-                    <div class="metric-value">4.2min</div>
-                    <div class="metric-label">Avg Session</div>
+                    <div class="metric-value" style="color: #ff6b6b;">{{ metrics.low_value_count if metrics else 0 }}</div>
+                    <div class="metric-label">Low-Value Targets</div>
                 </div>
                 <div class="metric-item">
-                    <div class="metric-value">68%</div>
-                    <div class="metric-label">Return Rate</div>
+                    <div class="metric-value" style="color: #00ffcc;">{{ "%.1f"|format(metrics.cac_efficiency if metrics else 0) }}%</div>
+                    <div class="metric-label">CAC Efficiency</div>
                 </div>
                 <div class="metric-item">
-                    <div class="metric-value">89</div>
-                    <div class="metric-label">NPS Score</div>
+                    <div class="metric-value" style="color: #ffaa00;">{{ "%.1f"|format(metrics.cost_savings_potential if metrics else 0) }}%</div>
+                    <div class="metric-label">Cost Savings</div>
                 </div>
                 <div class="metric-item">
-                    <div class="metric-value">3.2K</div>
-                    <div class="metric-label">Daily Active</div>
+                    <div class="metric-value" style="color: #00ffcc;">{{ metrics.total_evaluated if metrics else 0 }}</div>
+                    <div class="metric-label">Total Evaluated</div>
                 </div>
             </div>
 
@@ -435,43 +417,44 @@ https://templatemo.com/tm-602-graph-page
     <!-- Reports Section -->
     <section class="reports-section" id="reports">
         <div class="dashboard-container">
-            <h2 class="section-title">Reports & Insights</h2>
+            <h2 class="section-title">Acquisition Cost Optimization Insights</h2>
+            <p style="text-align: center; color: #a0a0a0; margin-bottom: 30px;">Strategic recommendations to reduce customer acquisition costs</p>
             <div class="info-grid">
                 <div class="info-card">
-                    <div class="info-icon">💼</div>
-                    <h3 class="info-title">Business Intelligence</h3>
-                    <div class="info-value">98.5%</div>
-                    <p style="font-size: 14px; color: #a0a0a0;">Accuracy in predictive analytics and business forecasting models.</p>
+                    <div class="info-icon">🎯</div>
+                    <h3 class="info-title">Targeting Strategy</h3>
+                    <div class="info-value" style="color: #00ff88;">{{ "%.0f"|format((metrics.high_value_rate if metrics else 0) / 10) }}/10</div>
+                    <p style="font-size: 14px; color: #a0a0a0;">{% if metrics and metrics.high_value_rate >= 50 %}Excellent targeting! Focus budget on high-value segments.{% elif metrics and metrics.high_value_rate >= 30 %}Good targeting. Refine criteria to increase high-value rate.{% else %}Improve targeting criteria. Evaluate more profiles to identify patterns.{% endif %}</p>
                 </div>
                 <div class="info-card">
-                    <div class="info-icon">📱</div>
-                    <h3 class="info-title">Mobile Analytics</h3>
-                    <div class="info-value">2.4M</div>
-                    <p style="font-size: 14px; color: #a0a0a0;">Mobile app downloads and active user engagement metrics.</p>
-                </div>
-                <div class="info-card">
-                    <div class="info-icon">🌍</div>
-                    <h3 class="info-title">Global Reach</h3>
-                    <div class="info-value">150+</div>
-                    <p style="font-size: 14px; color: #a0a0a0;">Countries actively using our analytics platform worldwide.</p>
+                    <div class="info-icon">💰</div>
+                    <h3 class="info-title">Media Cost Impact</h3>
+                    <div class="info-value" style="color: #ff6b6b;">-{{ "%.1f"|format(metrics.cost_savings_potential if metrics else 0) }}%</div>
+                    <p style="font-size: 14px; color: #a0a0a0;">Potential media spend reduction by avoiding low-value targets. Every percentage point saves marketing budget.</p>
                 </div>
                 <div class="info-card">
                     <div class="info-icon">🚀</div>
-                    <h3 class="info-title">Performance Index</h3>
-                    <div class="info-value">847</div>
-                    <p style="font-size: 14px; color: #a0a0a0;">Comprehensive performance scoring across all platform metrics.</p>
+                    <h3 class="info-title">ROI Potential</h3>
+                    <div class="info-value" style="color: #00ffcc;">{{ "%.1f"|format(metrics.cac_efficiency if metrics else 0) }}%</div>
+                    <p style="font-size: 14px; color: #a0a0a0;">Expected return on acquisition investment. Higher efficiency = better ROI on marketing campaigns.</p>
                 </div>
                 <div class="info-card">
-                    <div class="info-icon">⚡</div>
-                    <h3 class="info-title">Response Time</h3>
-                    <div class="info-value">0.2s</div>
-                    <p style="font-size: 14px; color: #a0a0a0;">Average API response time ensuring optimal user experience.</p>
+                    <div class="info-icon">⭐</div>
+                    <h3 class="info-title">Big Fish Rate</h3>
+                    <div class="info-value" style="color: #00ff88;">{{ "%.1f"|format(metrics.high_value_rate if metrics else 0) }}%</div>
+                    <p style="font-size: 14px; color: #a0a0a0;">Percentage of high-value customers (Les Big Fish) in your target pool. Maximize this for optimal results.</p>
                 </div>
                 <div class="info-card">
                     <div class="info-icon">📊</div>
-                    <h3 class="info-title">Data Processing</h3>
-                    <div class="info-value">12TB</div>
-                    <p style="font-size: 14px; color: #a0a0a0;">Daily data volume processed through our analytics pipeline.</p>
+                    <h3 class="info-title">Data Quality</h3>
+                    <div class="info-value" style="color: #ffaa00;">{{ metrics.total_evaluated if metrics else 0 }}</div>
+                    <p style="font-size: 14px; color: #a0a0a0;">Customer profiles analyzed by ML model. More evaluations = better insights and pattern recognition.</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">🎯</div>
+                    <h3 class="info-title">Conversion Focus</h3>
+                    <div class="info-value" style="color: #00ffcc;">{{ "%.1f"|format(metrics.conversion_potential if metrics else 0) }}%</div>
+                    <p style="font-size: 14px; color: #a0a0a0;">Average conversion probability. Target customers with 70%+ probability for maximum efficiency.</p>
                 </div>
             </div>
         </div>
@@ -482,28 +465,81 @@ https://templatemo.com/tm-602-graph-page
         <div class="dashboard-container">
             <h2 class="section-title">Get In Touch</h2>
             <div class="contact-grid">
-                <!-- Contact Form -->
+                <!-- ML Prediction Form -->
                 <div class="contact-form">
-                    <h3 style="margin-bottom: 30px; font-size: 24px;">Send us a Message</h3>
-                    <form id="contactForm">
+                    <h3 style="margin-bottom: 30px; font-size: 24px;">ML Model Prediction</h3>
+                    <form method="POST" action="{{ url_for('hamza.hamza') }}">
                         <div class="form-group">
-                            <label for="name">Full Name</label>
-                            <input type="text" id="name" name="name" required>
+                            <label for="purchase_amount">Purchase Amount</label>
+                            <input type="number" step="any" id="purchase_amount" name="purchase_amount" required placeholder="Enter purchase amount">
                         </div>
                         <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <input type="email" id="email" name="email" required>
+                            <label for="frequency">Frequency of Purchase</label>
+                            <input type="number" step="any" id="frequency" name="frequency" required placeholder="Enter frequency of purchase">
                         </div>
                         <div class="form-group">
-                            <label for="subject">Subject</label>
-                            <input type="text" id="subject" name="subject" required>
+                            <label for="satisfaction">Customer Satisfaction</label>
+                            <input type="number" step="any" id="satisfaction" name="satisfaction" required placeholder="Enter satisfaction score">
                         </div>
                         <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" name="message" required placeholder="Tell us how we can help you..."></textarea>
+                            <label for="rating">Product Rating</label>
+                            <input type="number" step="any" id="rating" name="rating" required placeholder="Enter product rating">
                         </div>
-                        <button type="submit" class="cta-button" style="width: 100%;">Send Message</button>
+                        <div class="form-group">
+                            <label for="age">Age</label>
+                            <input type="number" step="any" id="age" name="age" required placeholder="Enter age">
+                        </div>
+                        <button type="submit" class="cta-button" style="width: 100%;">Predict</button>
                     </form>
+                    
+                    {% if prediction %}
+                    <div style="margin-top: 30px;">
+                        {% if prediction.error %}
+                            <div style="padding: 20px; background: rgba(255, 107, 107, 0.1); border-radius: 8px; border: 2px solid #ff6b6b;">
+                                <h4 style="color: #ff6b6b; margin-bottom: 10px;">Error:</h4>
+                                <p style="color: #ff6b6b;">{{ prediction.error }}</p>
+                            </div>
+                        {% else %}
+                            <!-- Customer Value Segment -->
+                            <div style="padding: 25px; background: linear-gradient(135deg, rgba(0, 255, 204, 0.15) 0%, rgba(0, 255, 136, 0.1) 100%); border-radius: 12px; border: 2px solid {{ prediction.value_color }}; margin-bottom: 20px;">
+                                <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                                    <span style="font-size: 32px; margin-right: 15px;">{{ prediction.value_icon }}</span>
+                                    <div>
+                                        <h3 style="color: {{ prediction.value_color }}; margin: 0; font-size: 28px; font-weight: bold;">{{ prediction.value_segment }} CUSTOMER</h3>
+                                        <p style="color: #a0a0a0; margin: 5px 0 0 0; font-size: 14px;">Marketing Target Classification</p>
+                                    </div>
+                                </div>
+                                <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                                    <p style="font-size: 16px; margin-bottom: 8px;"><strong style="color: {{ prediction.value_color }};">High-Value Probability:</strong> <span style="color: #fff;">{{ "%.1f"|format(prediction.proba_class_1) }}%</span></p>
+                                    <p style="font-size: 14px; color: #a0a0a0; margin-bottom: 8px;">Low-Value Probability: {{ "%.1f"|format(prediction.proba_class_0) }}%</p>
+                                    <p style="font-size: 14px; color: #a0a0a0;">Overall Confidence: {{ "%.1f"|format(prediction.probability) }}%</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Marketing Recommendations -->
+                            {% if prediction.recommendations %}
+                            <div style="margin-top: 20px;">
+                                <h3 style="color: #00ffcc; margin-bottom: 20px; font-size: 24px;">📋 Marketing Recommendations</h3>
+                                <div style="display: flex; flex-direction: column; gap: 15px;">
+                                    {% for rec in prediction.recommendations %}
+                                    <div style="padding: 18px; background: {% if rec.priority == 'high' %}rgba(255, 107, 107, 0.1){% elif rec.priority == 'medium' %}rgba(255, 170, 0, 0.1){% else %}rgba(160, 160, 160, 0.1){% endif %}; border-radius: 8px; border-left: 4px solid {% if rec.priority == 'high' %}#ff6b6b{% elif rec.priority == 'medium' %}#ffaa00{% else %}#a0a0a0{% endif %};">
+                                        <div style="display: flex; align-items: start;">
+                                            <span style="font-size: 24px; margin-right: 12px;">
+                                                {% if rec.priority == 'high' %}🔴{% elif rec.priority == 'medium' %}🟡{% else %}⚪{% endif %}
+                                            </span>
+                                            <div style="flex: 1;">
+                                                <h4 style="color: {% if rec.priority == 'high' %}#ff6b6b{% elif rec.priority == 'medium' %}#ffaa00{% else %}#a0a0a0{% endif %}; margin: 0 0 8px 0; font-size: 18px;">{{ rec.title }}</h4>
+                                                <p style="color: #e0e0e0; margin: 0; font-size: 14px; line-height: 1.6;">{{ rec.message }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                    {% endif %}
                 </div>
 
                 <!-- Contact Info -->
