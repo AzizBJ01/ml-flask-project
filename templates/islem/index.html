@@ -5,49 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Graph Page - Modern Analytics Dashboard</title>
     <link rel="stylesheet" href="../../static/templatemo-graph-page.css">
-<!-- 
-
-TemplateMo 602 Graph Page
-
-https://templatemo.com/tm-602-graph-page
-
--->
-
-
-
-<!--
-<form method="POST">
-    <label>Return Rate History:</label>
-    <input type="number" step="any" name="param1">
-    
-    <label>Product Rating Avg:</label>
-    <input type="number" step="any" name="param2">
-    
-    <label>Customer Satisfaction:</label>
-    <input type="number" step="any" name="param3">
-    
-    <label>Purchase Frequency:</label>
-    <input type="number" step="any" name="param4">
-    
-    <label>Average Spend:</label>
-    <input type="number" step="any" name="param5">
-    
-
-    <button type="submit">Predict</button>
-</form>
-
-{% if prediction is not none %}
-    <h3>Prediction Result: {{ prediction }}</h3>
-{% endif %} -->
-
-
-
-
-
-
+    <!-- Add Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .chart-container {
+            height: 300px;
+            margin: 20px 0;
+        }
+        .chart-wrapper {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+        .platform-card {
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .platform-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 255, 204, 0.3);
+        }
+        .best-platform-badge {
+            position: absolute;
+            top: -10px;
+            right: 10px;
+            background: #00ffcc;
+            color: #000;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+        .performance-bar {
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+        .performance-fill {
+            height: 100%;
+            background: #00ffcc;
+            border-radius: 2px;
+            transition: width 1s ease;
+        }
+    </style>
 </head>
 <body>
-    <h1>TEST HEEEEY</h1>
     <!-- Navigation -->
     <nav id="navbar">
         <div class="nav-container">
@@ -64,6 +73,7 @@ https://templatemo.com/tm-602-graph-page
                 <li><a href="#dashboard">Dashboard</a></li>
                 <li><a href="#analytics">Analytics</a></li>
                 <li><a href="#reports">Reports</a></li>
+                <li><a href="#campaign-simulation">Campaign Sim</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
             <a href="https://www.google.com/search" target="_blank" rel="noopener" title="Search">
@@ -83,6 +93,7 @@ https://templatemo.com/tm-602-graph-page
             <li><a href="#dashboard">Dashboard</a></li>
             <li><a href="#analytics">Analytics</a></li>
             <li><a href="#reports">Reports</a></li>
+            <li><a href="#campaign-simulation">Campaign Sim</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
     </nav>
@@ -477,6 +488,262 @@ https://templatemo.com/tm-602-graph-page
         </div>
     </section>
 
+<!-- Campaign Simulation Section -->
+<section class="dashboard-section" id="campaign-simulation">
+    <div class="dashboard-container">
+        <h2 class="section-title" style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 1.5em;">📣</span>
+            Campaign Simulation & Budget Optimization
+        </h2>
+        
+        <p style="text-align: center; color: #a0a0a0; margin-bottom: 40px; max-width: 800px; margin-left: auto; margin-right: auto;">
+            Enter your campaign details below to simulate performance across different platforms and get intelligent budget allocation recommendations.
+        </p>
+
+        <form method="POST" class="campaign-form" style="background: rgba(255, 255, 255, 0.05); padding: 40px; border-radius: 15px; border: 1px solid rgba(255, 255, 255, 0.1);">
+            <div class="form-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; margin-bottom: 30px;">
+                <div class="form-group">
+                    <label style="display: block; margin-bottom: 8px; color: #fff; font-weight: 500;">Campaign Duration (days)</label>
+                    <input type="number" name="duration" value="{{ form_data.duration if form_data.duration else '' }}" 
+                           placeholder="e.g. 30" required
+                           style="width: 100%; padding: 12px 15px; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 8px; color: white; font-size: 14px;">
+                </div>
+
+                <div class="form-group">
+                    <label style="display: block; margin-bottom: 8px; color: #fff; font-weight: 500;">Campaign Budget (€)</label>
+                    <input type="number" name="budget" value="{{ form_data.budget if form_data.budget else '' }}" 
+                           placeholder="e.g. 5000" required
+                           style="width: 100%; padding: 12px 15px; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 8px; color: white; font-size: 14px;">
+                </div>
+
+                <div class="form-group">
+                    <label style="display: block; margin-bottom: 8px; color: #fff; font-weight: 500;">Expected Sales Conversion (%)</label>
+                    <input type="number" step="0.01" name="conversion_rate" value="{{ form_data.conversion_rate if form_data.conversion_rate else '' }}" 
+                           placeholder="e.g. 5 = 5%"
+                           style="width: 100%; padding: 12px 15px; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 8px; color: white; font-size: 14px;">
+                    <small style="display: block; margin-top: 5px; color:#aaa; font-size: 12px;">Percentage of people expected to buy after seeing the campaign</small>
+                </div>
+
+                <div class="form-group">
+                    <label style="display: block; margin-bottom: 8px; color: #fff; font-weight: 500;">Expected Customer Engagement (1–10)</label>
+                    <input type="number" min="1" max="10" name="engagement" value="{{ form_data.engagement if form_data.engagement else '' }}" 
+                           placeholder="1 = low, 10 = very high"
+                           style="width: 100%; padding: 12px 15px; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 8px; color: white; font-size: 14px;">
+                </div>
+
+                <div class="form-group">
+                    <label style="display: block; margin-bottom: 8px; color: #fff; font-weight: 500;">Target Audience</label>
+                    <select name="target_audience" style="width: 100%; padding: 12px 15px; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 8px; color: white; font-size: 14px; cursor: pointer;">
+                        <option value="Women 18–24" {% if form_data.target_audience == 'Women 18–24' %}selected{% endif %}>Women 18–24</option>
+                        <option value="Women 25–34" {% if form_data.target_audience == 'Women 25–34' or not form_data.target_audience %}selected{% endif %}>Women 25–34</option>
+                        <option value="Women 35–44" {% if form_data.target_audience == 'Women 35–44' %}selected{% endif %}>Women 35–44</option>
+                        <option value="Women 45+" {% if form_data.target_audience == 'Women 45+' %}selected{% endif %}>Women 45+</option>
+                        <option value="Men 18–24" {% if form_data.target_audience == 'Men 18–24' %}selected{% endif %}>Men 18–24</option>
+                        <option value="Men 25–34" {% if form_data.target_audience == 'Men 25–34' %}selected{% endif %}>Men 25–34</option>
+                        <option value="Men 35–44" {% if form_data.target_audience == 'Men 35–44' %}selected{% endif %}>Men 35–44</option>
+                        <option value="Men 45+" {% if form_data.target_audience == 'Men 45+' %}selected{% endif %}>Men 45+</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label style="display: block; margin-bottom: 8px; color: #fff; font-weight: 500;">Campaign Goal</label>
+                    <select name="campaign_goal" style="width: 100%; padding: 12px 15px; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 8px; color: white; font-size: 14px; cursor: pointer;">
+                        <option value="Increase Sales" {% if form_data.campaign_goal == 'Increase Sales' or not form_data.campaign_goal %}selected{% endif %}>Increase Sales</option>
+                        <option value="Increase Brand Awareness" {% if form_data.campaign_goal == 'Increase Brand Awareness' %}selected{% endif %}>Increase Brand Awareness</option>
+                        <option value="Increase Website Traffic" {% if form_data.campaign_goal == 'Increase Website Traffic' %}selected{% endif %}>Increase Website Traffic</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label style="display: block; margin-bottom: 8px; color: #fff; font-weight: 500;">Advertising Platform</label>
+                    <select name="platform" style="width: 100%; padding: 12px 15px; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 8px; color: white; font-size: 14px; cursor: pointer;">
+                        <option value="Instagram" {% if form_data.platform == 'Instagram' or not form_data.platform %}selected{% endif %}>Instagram</option>
+                        <option value="Facebook" {% if form_data.platform == 'Facebook' %}selected{% endif %}>Facebook</option>
+                        <option value="Twitter" {% if form_data.platform == 'Twitter' %}selected{% endif %}>Twitter</option>
+                        <option value="Pinterest" {% if form_data.platform == 'Pinterest' %}selected{% endif %}>Pinterest</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label style="display: block; margin-bottom: 8px; color: #fff; font-weight: 500;">Campaign Location</label>
+                    <select name="location" style="width: 100%; padding: 12px 15px; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 8px; color: white; font-size: 14px; cursor: pointer;">
+                        <option value="Paris" {% if form_data.location == 'Paris' or not form_data.location %}selected{% endif %}>Paris</option>
+                        <option value="London" {% if form_data.location == 'London' %}selected{% endif %}>London</option>
+                        <option value="Berlin" {% if form_data.location == 'Berlin' %}selected{% endif %}>Berlin</option>
+                        <option value="New York" {% if form_data.location == 'New York' %}selected{% endif %}>New York</option>
+                        <option value="Online / Global" {% if form_data.location == 'Online / Global' %}selected{% endif %}>Online / Global</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label style="display: block; margin-bottom: 8px; color: #fff; font-weight: 500;">Campaign Language</label>
+                    <select name="language" style="width: 100%; padding: 12px 15px; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 8px; color: white; font-size: 14px; cursor: pointer;">
+                        <option value="English" {% if form_data.language == 'English' or not form_data.language %}selected{% endif %}>English</option>
+                        <option value="French" {% if form_data.language == 'French' %}selected{% endif %}>French</option>
+                        <option value="German" {% if form_data.language == 'German' %}selected{% endif %}>German</option>
+                        <option value="Spanish" {% if form_data.language == 'Spanish' %}selected{% endif %}>Spanish</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label style="display: block; margin-bottom: 8px; color: #fff; font-weight: 500;">Customer Segment</label>
+                    <select name="customer_segment" style="width: 100%; padding: 12px 15px; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 8px; color: white; font-size: 14px; cursor: pointer;">
+                        <option value="Retail" {% if form_data.customer_segment == 'Retail' or not form_data.customer_segment %}selected{% endif %}>Retail</option>
+                        <option value="Luxury" {% if form_data.customer_segment == 'Luxury' %}selected{% endif %}>Luxury</option>
+                        <option value="B2B" {% if form_data.customer_segment == 'B2B' %}selected{% endif %}>B2B</option>
+                        <option value="B2C" {% if form_data.customer_segment == 'B2C' %}selected{% endif %}>B2C</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label style="display: block; margin-bottom: 8px; color: #fff; font-weight: 500;">Brand / Company Name</label>
+                    <input type="text" name="company" value="{{ form_data.company if form_data.company else '' }}" 
+                           placeholder="e.g. MyBrand"
+                           style="width: 100%; padding: 12px 15px; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 8px; color: white; font-size: 14px;">
+                </div>
+            </div>
+
+            <button type="submit" 
+                    style="display: block; width: 100%; padding: 16px; background: linear-gradient(135deg, #00ffcc 0%, #00cc99 100%); border: none; border-radius: 10px; color: #000; font-size: 16px; font-weight: bold; cursor: pointer; transition: all 0.3s ease; margin-top: 20px;">
+                <span style="display: inline-block; margin-right: 10px;">🚀</span>
+                Simulate Campaign & Get Recommendations
+            </button>
+        </form>
+
+        {% if prediction is not none %}
+        <div class="simulation-results" style="margin-top: 50px; padding: 40px; background: linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, rgba(20, 30, 40, 0.3) 100%); border-radius: 15px; border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);">
+            <h3 style="margin-bottom: 30px; color:#00ffcc; font-size: 24px; display: flex; align-items: center; gap: 10px;">
+                <span>📊</span> Simulation Results
+            </h3>
+            
+            {% if prediction is string and prediction.startswith('Error') %}
+            <div style="color:#ff6b6b; padding: 20px; background: rgba(255, 107, 107, 0.1); border-radius: 10px; border-left: 4px solid #ff6b6b;">
+                <strong style="display: block; margin-bottom: 10px;">⚠️ Error</strong>
+                {{ prediction }}
+            </div>
+            {% else %}
+            <!-- Best Performing Platform -->
+            <div style="margin-bottom: 30px; padding: 25px; background: linear-gradient(135deg, rgba(0, 255, 204, 0.1) 0%, rgba(0, 204, 153, 0.1) 100%); border-radius: 12px; border: 1px solid rgba(0, 255, 204, 0.3); position: relative;">
+                <div style="position: absolute; top: -15px; left: 20px; background: #00ffcc; color: #000; padding: 5px 15px; border-radius: 20px; font-size: 12px; font-weight: bold;">
+                    🏆 RECOMMENDED
+                </div>
+                <h4 style="margin-top: 10px; margin-bottom: 15px; color:#00ffcc; font-size: 20px;">Best Performing Platform</h4>
+                <div style="font-size: 32px; font-weight: bold; color:#fff; margin: 10px 0; text-shadow: 0 0 10px rgba(0, 255, 204, 0.5);">{{ prediction }}</div>
+                <small style="color:#aaa; display: block; margin-top: 10px;">Based on predicted impressions and engagement rates</small>
+            </div>
+            
+            {% if platform_results %}
+            <!-- Platform Performance Comparison -->
+            <div style="margin-bottom: 40px;">
+                <h4 style="margin-bottom: 20px; color:#fff; font-size: 20px; display: flex; align-items: center; gap: 10px;">
+                    <span>📈</span> Platform Performance Comparison
+                </h4>
+                <div class="platform-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px;">
+                    {% for platform, impressions in platform_results.items() %}
+                    <div class="platform-card">
+                        {% if platform == prediction %}
+                        <div class="best-platform-badge">★</div>
+                        {% endif %}
+                        <div style="font-size: 14px; color:#aaa; margin-bottom: 8px;">{{ platform }}</div>
+                        <div style="font-size: 28px; font-weight: bold; color:#fff; margin: 10px 0;">{{ impressions }}</div>
+                        <div style="font-size: 12px; color:#aaa;">estimated impressions</div>
+                        <div class="performance-bar">
+                            <div class="performance-fill" style="width: {{ (impressions / (platform_results.values()|max) * 100)|round|int }}%; background: {% if platform == prediction %}#00ffcc{% else %}#ff6b6b{% endif %};"></div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            {% if budget_allocation %}
+            <div style="margin-bottom: 30px; padding: 25px; background: rgba(255, 255, 255, 0.05); border-radius: 12px;">
+                <h4 style="margin-bottom: 20px; color:#00ffcc; font-size: 20px; display: flex; align-items: center; gap: 10px;">
+                    <span>💰</span> Budget Allocation Recommendation
+                </h4>
+                <p style="color:#aaa; margin-bottom: 20px;">Based on performance predictions, here's how to allocate your €{{ form_data.budget if form_data.budget else '5000' }} budget:</p>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                    {% for platform, amount in budget_allocation.items() %}
+                    <div style="padding: 15px; background: rgba(255, 255, 255, 0.03); border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
+                        <span style="color:#fff; font-weight: 500;">{{ platform }}</span>
+                        <span style="color:#00ffcc; font-weight: bold; font-size: 18px;">€{{ amount }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                    <div style="display: flex; justify-content: space-between; color:#fff; font-weight: bold;">
+                        <span>Total Budget:</span>
+                        <span>€{{ budget_allocation.values()|sum }}</span>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            
+            <!-- Chart.js Visualizations -->
+            <div style="margin-bottom: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px;">
+                <!-- Impressions Chart -->
+                <div class="chart-wrapper">
+                    <h4 style="color:#00ffcc; margin-bottom: 15px;">📈 Platform Impressions</h4>
+                    <div class="chart-container">
+                        <canvas id="impressionsChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Budget Allocation Chart -->
+                {% if budget_allocation %}
+                <div class="chart-wrapper">
+                    <h4 style="color:#00ffcc; margin-bottom: 15px;">💰 Budget Allocation</h4>
+                    <div class="chart-container">
+                        <canvas id="budgetChart"></canvas>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Summary Stats -->
+            <div style="margin-top: 30px; padding: 25px; background: rgba(255, 255, 255, 0.05); border-radius: 12px;">
+                <h5 style="margin-top: 0; margin-bottom: 20px; color:#fff; font-size: 18px; display: flex; align-items: center; gap: 10px;">
+                    <span>📋</span> Campaign Summary
+                </h5>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                    <div>
+                        <div style="font-size: 12px; color:#aaa; margin-bottom: 5px;">Total Estimated Impressions</div>
+                        <div style="font-size: 24px; font-weight: bold; color:#fff;">{{ platform_results.values()|sum }}</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 12px; color:#aaa; margin-bottom: 5px;">Average Per Platform</div>
+                        <div style="font-size: 24px; font-weight: bold; color:#fff;">{{ (platform_results.values()|sum / platform_results|length)|round|int }}</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 12px; color:#aaa; margin-bottom: 5px;">Campaign Duration</div>
+                        <div style="font-size: 24px; font-weight: bold; color:#fff;">{{ form_data.duration if form_data.duration else '30' }} days</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 12px; color:#aaa; margin-bottom: 5px;">Total Budget</div>
+                        <div style="font-size: 24px; font-weight: bold; color:#fff;">€{{ form_data.budget if form_data.budget else '5000' }}</div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endif %}
+            
+            <!-- Download Report Button -->
+            <div style="text-align: center; margin-top: 40px;">
+                <button onclick="window.print()" 
+                        style="padding: 15px 30px; background: transparent; border: 2px solid #00ffcc; border-radius: 8px; color: #00ffcc; font-size: 14px; font-weight: bold; cursor: pointer; transition: all 0.3s ease;">
+                    <span style="margin-right: 10px;">📥</span>
+                    Download Campaign Report
+                </button>
+                <a href="#campaign-simulation" 
+                   style="margin-left: 15px; padding: 15px 30px; background: rgba(255, 255, 255, 0.1); border: none; border-radius: 8px; color: #fff; font-size: 14px; font-weight: bold; cursor: pointer; text-decoration: none; display: inline-block; transition: all 0.3s ease;">
+                    <span style="margin-right: 10px;">🔄</span>
+                    Run Another Simulation
+                </a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
     <!-- Contact Section -->
     <section class="contact-section" id="contact">
         <div class="dashboard-container">
@@ -554,6 +821,212 @@ https://templatemo.com/tm-602-graph-page
         </div>
     </footer>
 
-<script src="templatemo-graph-script.js"></script>
+    <script src="templatemo-graph-script.js"></script>
+    
+    {% if platform_results %}
+    <script>
+        // Impressions Chart
+        const platformLabels = {{ platform_results.keys()|list|tojson }};
+        const impressionsData = {{ platform_results.values()|list|tojson }};
+        
+        // Determine which platform is the best (prediction)
+        const bestPlatform = '{{ prediction }}';
+        const backgroundColors = platformLabels.map(label => 
+            label === bestPlatform ? '#00ffcc' : '#ff6b6b'
+        );
+
+        // Create Impressions Chart
+        new Chart(document.getElementById('impressionsChart'), {
+            type: 'bar',
+            data: {
+                labels: platformLabels,
+                datasets: [{
+                    label: 'Estimated Impressions',
+                    data: impressionsData,
+                    backgroundColor: backgroundColors,
+                    borderColor: backgroundColors.map(color => color.replace('0.8', '1')),
+                    borderWidth: 1,
+                    borderRadius: 5
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        titleColor: '#00ffcc',
+                        bodyColor: '#fff',
+                        borderColor: '#00ffcc',
+                        borderWidth: 1
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        ticks: {
+                            color: '#aaa'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            color: '#aaa'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+    {% endif %}
+
+    {% if budget_allocation %}
+    <script>
+        // Budget Allocation Chart
+        const budgetLabels = {{ budget_allocation.keys()|list|tojson }};
+        const budgetData = {{ budget_allocation.values()|list|tojson }};
+        
+        const budgetColors = [
+            '#00ffcc', '#ff6b6b', '#4ecdc4', '#feca57',
+            '#5f27cd', '#ff9ff3', '#54a0ff', '#00d2d3'
+        ];
+
+        // Create Budget Chart
+        new Chart(document.getElementById('budgetChart'), {
+            type: 'doughnut',
+            data: {
+                labels: budgetLabels,
+                datasets: [{
+                    data: budgetData,
+                    backgroundColor: budgetColors.slice(0, budgetLabels.length),
+                    borderColor: 'rgba(255, 255, 255, 0.1)',
+                    borderWidth: 2,
+                    hoverOffset: 15
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'right',
+                        labels: {
+                            color: '#aaa',
+                            padding: 20,
+                            font: {
+                                size: 12
+                            }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const label = context.label || '';
+                                const value = context.raw || 0;
+                                const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                const percentage = Math.round((value / total) * 100);
+                                return `${label}: €${value} (${percentage}%)`;
+                            }
+                        },
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        titleColor: '#00ffcc',
+                        bodyColor: '#fff'
+                    }
+                },
+                cutout: '65%'
+            }
+        });
+    </script>
+    {% endif %}
+
+    <script>
+        // Additional animations and interactivity
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate performance bars
+            const performanceBars = document.querySelectorAll('.performance-fill');
+            performanceBars.forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 300);
+            });
+
+            // Animate charts on scroll
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            // Observe all chart wrappers
+            document.querySelectorAll('.chart-wrapper').forEach(wrapper => {
+                wrapper.style.opacity = '0';
+                wrapper.style.transform = 'translateY(20px)';
+                wrapper.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(wrapper);
+            });
+
+            // Print functionality enhancement
+            const printButton = document.querySelector('button[onclick="window.print()"]');
+            if (printButton) {
+                printButton.addEventListener('click', function() {
+                    // Add print-specific styling
+                    const printStyle = document.createElement('style');
+                    printStyle.innerHTML = `
+                        @media print {
+                            body * {
+                                visibility: hidden;
+                            }
+                            .simulation-results,
+                            .simulation-results * {
+                                visibility: visible;
+                            }
+                            .simulation-results {
+                                position: absolute;
+                                left: 0;
+                                top: 0;
+                                width: 100%;
+                                background: white !important;
+                                color: black !important;
+                            }
+                            .chart-container {
+                                page-break-inside: avoid;
+                            }
+                            button, a {
+                                display: none !important;
+                            }
+                        }
+                    `;
+                    document.head.appendChild(printStyle);
+                });
+            }
+
+            // Hover effects for platform cards
+            const platformCards = document.querySelectorAll('.platform-card');
+            platformCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                    this.style.borderColor = 'rgba(0, 255, 204, 0.3)';
+                });
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    const isBest = this.querySelector('.best-platform-badge');
+                    this.style.borderColor = isBest ? 'rgba(0, 255, 204, 0.3)' : 'rgba(255, 255, 255, 0.1)';
+                });
+            });
+        });
+    </script>
 </body>
 </html>
