@@ -1,3 +1,6 @@
+class CampaignFinale:
+    pass
+
 from flask import Flask, render_template
 from routes.aziz import aziz_bp
 from routes.emna import emna_bp
