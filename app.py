@@ -7,6 +7,7 @@ from routes.hamza import hamza_bp
 from routes.islem import islem_bp
 
 app = Flask(__name__)
+app.secret_key = 'ml-flask-secret-key-2024'  # Required for sessions
 
 # Register blueprints
 app.register_blueprint(aziz_bp)

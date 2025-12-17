@@ -1,3 +1,6 @@
 flask
 numpy
 scikit-learn
+pandas
+joblib
+xgboost
